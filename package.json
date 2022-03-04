@@ -1,0 +1,14 @@
+{
+  "name": "docker_micro_parse_web_app",
+  "version": "1.0.0",
+  "description": "Micro parse nodejs webapp on docker",
+  "author": "Quentin Chantelot <quentin@notice.studio>",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
+
