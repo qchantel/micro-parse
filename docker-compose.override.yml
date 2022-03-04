@@ -1,0 +1,9 @@
+services:
+  micro-parse-webapp:
+    build:
+      context: .
+      dockerfile: Dockerfile.development
+    ports:
+      - 49160:8080
+    volumes:
+      - .:/usr/src/app

@@ -1,0 +1,6 @@
+services:
+  micro-parse-webapp:
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - 49160:8080
