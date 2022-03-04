@@ -5,7 +5,8 @@
   "author": "Quentin Chantelot <quentin@notice.studio>",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "start.dev": "nodemon server.js"
   },
   "dependencies": {
     "express": "^4.17.3"
