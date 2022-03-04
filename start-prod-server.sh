@@ -1,1 +1,1 @@
-docker-compose -f docker-compose.yml -f docker-compose.production.yml up --no-deps --build
+docker-compose -f docker-compose.yml -f docker-compose.production.yml up --no-deps --build -d
