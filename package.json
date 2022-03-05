@@ -6,12 +6,33 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "start.dev": "nodemon server.js"
+    "start.dev": "nodemon server.js",
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   },
   "dependencies": {
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "metascraper": "^5.25.8",
+    "metascraper-author": "^5.25.8",
+    "metascraper-clearbit": "^5.25.8",
+    "metascraper-date": "^5.25.8",
+    "metascraper-description": "^5.25.8",
+    "metascraper-image": "^5.25.8",
+    "metascraper-logo": "^5.25.8",
+    "metascraper-publisher": "^5.25.8",
+    "metascraper-title": "^5.25.8",
+    "metascraper-url": "^5.25.8",
+    "validator": "^13.7.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "cross-env": "^7.0.3",
+    "jest": "^27.5.1",
+    "nodemon": "^2.0.15",
+    "supertest": "^6.2.2"
   }
 }
