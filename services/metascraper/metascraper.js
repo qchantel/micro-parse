@@ -56,7 +56,7 @@ async function parseUrl(targetUrl) {
     try {
       const allCss = await getAllCssFiles(cssFiles);
 
-      palette = allCss ? parseCss(allCss, url) : null;
+      palette = allCss ? parseCss(allCss, html) : null;
     } catch (e) {
       console.error(e);
     }

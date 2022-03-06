@@ -17,7 +17,15 @@ module.exports = (opts) => {
           .get()
           .map((elem) => {
             const fileName = elem.attribs["href"];
-            if (fileName && fileName[0] === "/") return slicedUrl + fileName;
+            if (fileName && fileName[0] === "/") {
+              return slicedUrl + fileName;
+            } else if (
+              fileName &&
+              !fileName.includes("://") &&
+              !fileName.includes("www.")
+            ) {
+              return url + fileName;
+            }
 
             // if (fileName.includes(".css")) console.log(fileName);
             return fileName;

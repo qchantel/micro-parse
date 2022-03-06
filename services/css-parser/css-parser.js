@@ -21,7 +21,7 @@ function findColors(string) {
   for (const match of matches) {
     i++;
     if (i > 300) break;
-    colorList.push(match[2]);
+    colorList.push(match[2].trim());
   }
   const varList = [];
   const noVarList = colorList.filter((color) => {
@@ -49,6 +49,8 @@ function findColors(string) {
           frequency,
         };
       } catch (e) {
+        console.error(e);
+
         return null;
       }
     });
@@ -98,9 +100,9 @@ function freqConvert(colorList) {
   return convertedUniqByFrequency;
 }
 
-function parseCss(html, css) {
+function parseCss(allCss, html) {
   const colors = findColors(html);
-  const cssColors = findColors(css);
+  const cssColors = findColors(allCss);
   const allCssColors = colors.concat(cssColors);
   const colorsOrderedByFreqs = freqConvert(allCssColors);
 
