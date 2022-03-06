@@ -69,7 +69,7 @@ async function parseUrl(targetUrl) {
 
     checkMemoryUsage();
     const data = { ...metaData, palette };
-    console.log(data);
+    // console.log(data);
     if (warningMessage) {
       data.warningMessage = warningMessage;
     }

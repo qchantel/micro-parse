@@ -9,6 +9,14 @@ async function findImageColor(metaData) {
   if (banListRegex.test(logo)) targetImage = image;
   const vib = await Vibrant.from(targetImage);
   const vibrantPalette = await vib.getPalette();
+
+  console.log(targetImage);
+  const enrichedVibrantPalette = Object.entries(vibrantPalette).map((v) => ({
+    ...v[1],
+    ...enrichColor(v._rgb),
+  }));
+
+  //   console.log(enrichedVibrantPalette);
   palette = {
     primaryColor: {
       rgb: vibrantPalette.Vibrant._rgb,
@@ -16,6 +24,7 @@ async function findImageColor(metaData) {
       ...enrichColor(vibrantPalette.Vibrant._rgb),
     },
   };
+  //   console.log(vibrantPalette, metaData.title, targetImage);
 
   return palette;
 }
