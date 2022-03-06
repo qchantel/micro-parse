@@ -1,5 +1,5 @@
-const express = require("express");
-const { parseUrlOrEmail } = require("../services/html-parser/html-parser");
+import express from "express";
+import { parseUrlOrEmail } from "../services/html-parser/html-parser.js";
 const router = express.Router();
 
 // Get all posts
@@ -8,14 +8,12 @@ router.use(express.json());
 router.get("/domain/infos/:urlOrEmail?", async (req, res, next) => {
   try {
     const { params } = req;
-
     if (!params || !params.urlOrEmail) {
       throw {
         status: 400,
         message: "Missing POST body, check the documentation for examples.",
       };
     }
-
     const { urlOrEmail } = params;
     const data = await parseUrlOrEmail(urlOrEmail);
 
@@ -32,4 +30,4 @@ router.use(function (err, req, res, next) {
     .json({ status: err.status, message: err.message });
 });
 
-module.exports = router;
+export default router;

@@ -1,5 +1,5 @@
-const express = require("express");
-const routes = require("../../controllers");
+import express from "express";
+import routes from "../../controllers";
 
 function createServer() {
   const app = express();
@@ -8,4 +8,4 @@ function createServer() {
   return app;
 }
 
-module.exports = createServer;
+export default createServer;

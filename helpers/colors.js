@@ -1,8 +1,14 @@
-const Color = require("color");
+import Color from "color";
 
-function enrichColor(color) {
+export function enrichColor(color, type = "string") {
+  let newColor = null;
+
   try {
-    const newColor = Color(color).rgb();
+    if (type === "string") {
+      newColor = Color(color).rgb();
+    } else {
+      newColor = Color.rgb(color);
+    }
 
     return {
       ...newColor,
@@ -15,7 +21,3 @@ function enrichColor(color) {
     return {};
   }
 }
-
-module.exports = {
-  enrichColor,
-};

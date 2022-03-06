@@ -1,4 +1,4 @@
-const Color = require("color");
+import Color from "color";
 
 function findAndReplaceCssVar(cssVar, string) {
   const regex = new RegExp(`${cssVar.string}:(.*?)[;!><\"\!;\\}]`);

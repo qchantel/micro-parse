@@ -1,6 +1,6 @@
 "use strict";
-const routes = require("./controllers");
-const express = require("express");
+import routes from "./controllers/index.js";
+import express from "express";
 
 console.log("starting server");
 

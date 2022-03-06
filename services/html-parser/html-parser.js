@@ -1,27 +1,28 @@
-const isEmail = require("validator/lib/isEmail");
-// const isUrl = require("validator/lib/isUrl");
-const { parseUrl } = require("../metascraper/metascraper");
+import isEmail from "validator/lib/isEmail.js";
+import isUrl from "validator/lib/isUrl.js";
+
+import { parseUrl } from "../metascraper/metascraper.js";
 
 function extractDomainFromEmail(email) {
   const regex = /@(.*)/;
   return email.match(regex)[1];
 }
 
-function getUrl(string) {
+export function getUrl(string) {
   if (isEmail(string)) {
     return extractDomainFromEmail(string);
   }
 
-  // if (isUrl(string)) {
-  return string;
-  // }
+  if (isUrl(string)) {
+    return string;
+  }
 
   throw new Error(
     "Be sure to pass a valid URL or e-mail. Example: 'example.com' or 'johnny@example.com'"
   );
 }
 
-async function parseUrlOrEmail(input = "") {
+export async function parseUrlOrEmail(input = "") {
   if (typeof input !== "string") {
     throw new Error("The URL or e-mail you provided is not a string.");
   }
@@ -34,8 +35,3 @@ async function parseUrlOrEmail(input = "") {
     throw e;
   }
 }
-
-module.exports = {
-  parseUrlOrEmail,
-  getUrl,
-};

@@ -1,10 +1,10 @@
 "use strict";
 
-const { $jsonld, toRule, description } = require("@metascraper/helpers");
+import { toRule } from "@metascraper/helpers";
 
 const cssRule = (value, opts) => value;
 
-module.exports = (opts) => {
+const metascrapFilesCustom = (opts) => {
   const toCss = toRule(cssRule, opts);
 
   return {
@@ -50,3 +50,5 @@ module.exports = (opts) => {
     ],
   };
 };
+
+export default metascrapFilesCustom;

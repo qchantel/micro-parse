@@ -1,25 +1,54 @@
-const metascraperFiles = require("./custom-rules/metascraper-files");
-const metascraper = require("metascraper")([
-  require("metascraper-title")(),
-  require("metascraper-description")(),
-  require("metascraper-image")(),
-  require("metascraper-logo")(),
-  require("metascraper-clearbit")(),
-  require("metascraper-publisher")(),
-  require("metascraper-url")(),
-  require("metascraper-author")(),
-  require("metascraper-date")(),
-  require("metascraper-lang")(),
-  require("metascraper-logo-favicon")(),
-  require("metascraper-manifest")(),
-  metascraperFiles(),
+import metascraperFiles from "./custom-rules/metascraper-files.js";
+import got from "got";
 
-  // require("metascraper-address")(),
+import metaorigin from "metascraper";
+import title from "metascraper-title";
+import description from "metascraper-description";
+import image from "metascraper-image";
+import logo from "metascraper-logo";
+import clearbit from "metascraper-clearbit";
+import publisher from "metascraper-publisher";
+import metaurl from "metascraper-url";
+import author from "metascraper-author";
+import metadate from "metascraper-date";
+import metalang from "metascraper-lang";
+import metafavicon from "metascraper-logo-favicon";
+import metanifest from "metascraper-manifest";
+
+const metascraper = metaorigin([
+  title(),
+  description(),
+  image(),
+  logo(),
+  clearbit(),
+  publisher(),
+  metaurl(),
+  author(),
+  metadate(),
+  metalang(),
+  metafavicon(),
+  metanifest(),
+  metascraperFiles(),
 ]);
-const got = require("got");
+
+// metascraper([
+//   import("metascraper-title")(),
+//   import("metascraper-description")(),
+//   import("metascraper-image")(),
+//   import("metascraper-logo")(),
+//   import("metascraper-clearbit")(),
+//   import("metascraper-publisher")(),
+//   import("metascraper-url")(),
+//   import("metascraper-author")(),
+//   import("metascraper-date")(),
+//   import("metascraper-lang")(),
+//   import("metascraper-logo-favicon")(),
+//   import("metascraper-manifest")(),
+//   metascraperFiles(),
+// ]);
 // const { parseCss } = require("../css-parser/css-parser");
-const { checkMemoryUsage } = require("../../helpers/inspector");
-const { findImageColor } = require("../image-parser/image-parser");
+import { checkMemoryUsage } from "../../helpers/inspector.js";
+import { findImageColor } from "../image-parser/image-parser.js";
 
 async function getAllCssFiles(cssFiles) {
   // TODO: add limiter size
@@ -34,7 +63,7 @@ async function getAllCssFiles(cssFiles) {
   return allCss;
 }
 
-async function parseUrl(targetUrl) {
+export async function parseUrl(targetUrl) {
   try {
     let palette = null;
     let html = null;
@@ -43,10 +72,11 @@ async function parseUrl(targetUrl) {
     let cssFilesPalette = null;
 
     try {
-      const gotHtmlRes = await got(targetUrl);
+      const gotHtmlRes = await got("https://" + targetUrl);
       html = gotHtmlRes.body;
       url = gotHtmlRes.url;
     } catch (e) {
+      console.error(e);
       html = e.body;
       url = e.url;
       warningMessage = `${targetUrl} is protected against robots, you are getting limited results.`;
@@ -73,6 +103,7 @@ async function parseUrl(targetUrl) {
     if (warningMessage) {
       data.warningMessage = warningMessage;
     }
+    console.log(data);
     return data;
   } catch (e) {
     throw (
@@ -82,12 +113,11 @@ async function parseUrl(targetUrl) {
 }
 
 async function parseUrlMetascraper(html, url) {
-  const metadata = await metascraper({ html, url });
+  let metadata = {};
+
+  const metascrapData = await metascraper({ html, url });
+  metadata = { ...metascrapData };
   metadata.name = metadata.publisher;
 
   return metadata;
 }
-
-module.exports = {
-  parseUrl,
-};

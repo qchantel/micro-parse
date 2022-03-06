@@ -1,4 +1,4 @@
-const { parseUrlOrEmail, getUrl } = require("./html-parser");
+import { parseUrlOrEmail, getUrl } from "./html-parser.js";
 
 describe("getUrl()", () => {
   test("shall throw error for malformed url", () => {

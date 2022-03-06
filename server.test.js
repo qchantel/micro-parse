@@ -1,5 +1,5 @@
-const supertest = require("supertest");
-const createServer = require("./services/server/httpServer");
+import supertest from "supertest";
+import createServer from "./services/server/httpServer.js";
 
 beforeEach((done) => {
   done();
