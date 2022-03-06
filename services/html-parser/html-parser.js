@@ -1,5 +1,5 @@
 const isEmail = require("validator/lib/isEmail");
-const isUrl = require("validator/lib/isUrl");
+// const isUrl = require("validator/lib/isUrl");
 const { parseUrl } = require("../metascraper/metascraper");
 
 function extractDomainFromEmail(email) {
@@ -12,9 +12,9 @@ function getUrl(string) {
     return extractDomainFromEmail(string);
   }
 
-  if (isUrl(string)) {
-    return string;
-  }
+  // if (isUrl(string)) {
+  return string;
+  // }
 
   throw new Error(
     "Be sure to pass a valid URL or e-mail. Example: 'example.com' or 'johnny@example.com'"
