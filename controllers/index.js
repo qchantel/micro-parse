@@ -5,6 +5,15 @@ const router = express.Router();
 // Get all posts
 router.use(express.json());
 
+router.use((req, res, next) => {
+  const auth =
+    req.headers["X-RapidAPI-Proxy-Secret"] ||
+    req.headers["x-rapidapi-proxy-secret"];
+  console.log(req.headers);
+  if (!auth) throw { status: 403, message: "Permission denied" };
+  console.log(auth);
+  next();
+});
 router.get("/domain/infos/:urlOrEmail?", async (req, res, next) => {
   try {
     const { params } = req;
