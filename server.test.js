@@ -20,15 +20,14 @@ describe("e2e testing", () => {
       const payload = {};
       await supertest(app).post("/api/").send(payload).expect(400);
     });
-    test("Shall work and return an object", async () => {
-      const payload = { urlOrEmail: "contact@notice.studio" };
+    test("Shall work and contain a body", async () => {
+      const payload = { urlOrEmail: "https://www.leboncoin.fr/" };
       await supertest(app)
         .post("/api/")
         .send(payload)
         .expect(200)
         .then(async ({ body }) => {
-          console.log(body);
-          expect(body).toBe(expect.any(Object));
+          expect(body).toBeDefined();
         });
     }, 10000);
   });

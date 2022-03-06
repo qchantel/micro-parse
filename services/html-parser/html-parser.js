@@ -1,6 +1,6 @@
 const isEmail = require("validator/lib/isEmail");
 const isUrl = require("validator/lib/isUrl");
-const { parseUrlMetascraper } = require("../metascraper/metascraper");
+const { parseUrl } = require("../metascraper/metascraper");
 
 function extractDomainFromEmail(email) {
   const regex = /@(.*)/;
@@ -28,12 +28,11 @@ async function parseUrlOrEmail(input = "") {
   const url = getUrl(input);
 
   try {
-    const data = await parseUrlMetascraper(url);
+    const data = await parseUrl(url);
     return data;
   } catch (e) {
-    next(e);
+    throw e;
   }
-  throw { status: 500, message: "Server error while parsing" };
 }
 
 module.exports = {
