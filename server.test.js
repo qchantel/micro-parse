@@ -25,5 +25,23 @@ describe("e2e testing", () => {
           expect(body).toBeDefined();
         });
     }, 10000);
+    test("Shall work and contain a body", async () => {
+      const urlOrEmail = "capsa.com";
+      await supertest(app)
+        .get(`/api/domain/infos/${urlOrEmail}`)
+        .expect(200)
+        .then(async ({ body }) => {
+          expect(body).toBeDefined();
+        });
+    }, 10000);
+    test("Shall work and contain a body", async () => {
+      const urlOrEmail = "notice.studio";
+      await supertest(app)
+        .get(`/api/domain/infos/${urlOrEmail}`)
+        .expect(200)
+        .then(async ({ body }) => {
+          expect(body).toBeDefined();
+        });
+    }, 10000);
   });
 });

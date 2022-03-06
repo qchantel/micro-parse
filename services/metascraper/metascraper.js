@@ -17,10 +17,9 @@ const metascraper = require("metascraper")([
   // require("metascraper-address")(),
 ]);
 const got = require("got");
-const { parseCss } = require("../css-parser/css-parser");
+// const { parseCss } = require("../css-parser/css-parser");
 const { checkMemoryUsage } = require("../../helpers/inspector");
-const Vibrant = require("node-vibrant");
-const { enrichColor } = require("../../helpers/colors");
+const { findImageColor } = require("../image-parser/image-parser");
 
 async function getAllCssFiles(cssFiles) {
   // TODO: add limiter size
@@ -61,16 +60,9 @@ async function parseUrl(targetUrl) {
     // } catch (e) {
     //   console.error(e);
     // }
+
     try {
-      const vib = await Vibrant.from(metaData.logo || metaData.image);
-      const vibrantPalette = await vib.getPalette();
-      palette = {
-        primaryColor: {
-          rgb: vibrantPalette.Vibrant._rgb,
-          hsl: vibrantPalette.Vibrant._hsl,
-          ...enrichColor(vibrantPalette.Vibrant._rgb),
-        },
-      };
+      palette = await findImageColor(metaData);
     } catch (e) {
       console.error(e);
     }
