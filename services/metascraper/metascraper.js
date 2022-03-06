@@ -20,6 +20,7 @@ const got = require("got");
 const { parseCss } = require("../css-parser/css-parser");
 const { checkMemoryUsage } = require("../../helpers/inspector");
 const Vibrant = require("node-vibrant");
+const { enrichColor } = require("../../helpers/colors");
 
 async function getAllCssFiles(cssFiles) {
   // TODO: add limiter size
@@ -53,15 +54,13 @@ async function parseUrl(targetUrl) {
     }
     const metaData = await parseUrlMetascraper(html, url);
 
-    const cssFiles = metaData.files.filter((file) => file.includes(".css"));
+    // try {
+    //   const allCss = await getAllCssFiles(cssFiles);
 
-    try {
-      const allCss = await getAllCssFiles(cssFiles);
-
-      cssFilesPalette = allCss ? parseCss(allCss, html) : null;
-    } catch (e) {
-      console.error(e);
-    }
+    //   cssFilesPalette = allCss ? parseCss(allCss, html) : null;
+    // } catch (e) {
+    //   console.error(e);
+    // }
     try {
       const vib = await Vibrant.from(metaData.logo || metaData.image);
       const vibrantPalette = await vib.getPalette();
@@ -69,6 +68,7 @@ async function parseUrl(targetUrl) {
         primaryColor: {
           rgb: vibrantPalette.Vibrant._rgb,
           hsl: vibrantPalette.Vibrant._hsl,
+          ...enrichColor(vibrantPalette.Vibrant._rgb),
         },
       };
     } catch (e) {
@@ -76,7 +76,7 @@ async function parseUrl(targetUrl) {
     }
 
     checkMemoryUsage();
-    const data = { ...metaData, cssFilesPalette, palette };
+    const data = { ...metaData, palette };
     console.log(data);
     if (warningMessage) {
       data.warningMessage = warningMessage;
