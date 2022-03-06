@@ -5,22 +5,18 @@ const router = express.Router();
 // Get all posts
 router.use(express.json());
 
-router.get("/", async (req, res) => {
-  res.send("Hello world, api is working properly");
-});
-
-router.post("/", async (req, res, next) => {
+router.get("/domain/infos/:urlOrEmail?", async (req, res, next) => {
   try {
-    const { body } = req;
+    const { params } = req;
 
-    if (!body || !Object.keys(body).length) {
+    if (!params || !params.urlOrEmail) {
       throw {
         status: 400,
         message: "Missing POST body, check the documentation for examples.",
       };
     }
 
-    const { urlOrEmail } = body;
+    const { urlOrEmail } = params;
     const data = await parseUrlOrEmail(urlOrEmail);
 
     res.send(data);

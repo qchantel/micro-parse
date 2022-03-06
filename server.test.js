@@ -12,19 +12,14 @@ afterEach((done) => {
 const app = createServer();
 
 describe("e2e testing", () => {
-  test("GET /api/", async () => {
-    await supertest(app).get("/api/").expect(200);
-  });
-  describe("POST /api/domain-infos", () => {
+  describe("GET /api/domain/infos", () => {
     test("Shall error for missing body", async () => {
-      const payload = {};
-      await supertest(app).post("/api/").send(payload).expect(400);
+      await supertest(app).get(`/api/domain/infos/`).expect(400);
     });
     test("Shall work and contain a body", async () => {
-      const payload = { urlOrEmail: "stackoverflow.com" };
+      const urlOrEmail = "stackoverflow.com";
       await supertest(app)
-        .post("/api/")
-        .send(payload)
+        .get(`/api/domain/infos/${urlOrEmail}`)
         .expect(200)
         .then(async ({ body }) => {
           expect(body).toBeDefined();
