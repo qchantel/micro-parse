@@ -30,23 +30,6 @@ const metascraper = metaorigin([
   metanifest(),
   metascraperFiles(),
 ]);
-
-// metascraper([
-//   import("metascraper-title")(),
-//   import("metascraper-description")(),
-//   import("metascraper-image")(),
-//   import("metascraper-logo")(),
-//   import("metascraper-clearbit")(),
-//   import("metascraper-publisher")(),
-//   import("metascraper-url")(),
-//   import("metascraper-author")(),
-//   import("metascraper-date")(),
-//   import("metascraper-lang")(),
-//   import("metascraper-logo-favicon")(),
-//   import("metascraper-manifest")(),
-//   metascraperFiles(),
-// ]);
-// const { parseCss } = require("../css-parser/css-parser");
 import { checkMemoryUsage } from "../../helpers/inspector.js";
 import { findImageColor } from "../image-parser/image-parser.js";
 
@@ -99,11 +82,10 @@ export async function parseUrl(targetUrl) {
 
     checkMemoryUsage();
     const data = { ...metaData, palette };
-    // console.log(data);
     if (warningMessage) {
       data.warningMessage = warningMessage;
     }
-    console.log(data);
+    console.log(data.title);
     return data;
   } catch (e) {
     throw (

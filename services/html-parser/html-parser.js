@@ -1,5 +1,5 @@
-import isEmail from "validator/lib/isEmail.js";
-import isUrl from "validator/lib/isUrl.js";
+import isEmail from "validator/lib/isEmail"; // import isUrl from "validator/lib/isUrl.js";
+// import { isEmail, isUrl } from "validator";
 
 import { parseUrl } from "../metascraper/metascraper.js";
 
@@ -13,9 +13,9 @@ export function getUrl(string) {
     return extractDomainFromEmail(string);
   }
 
-  if (isUrl(string)) {
-    return string;
-  }
+  // if (isUrl(string)) {
+  return string;
+  // }
 
   throw new Error(
     "Be sure to pass a valid URL or e-mail. Example: 'example.com' or 'johnny@example.com'"
