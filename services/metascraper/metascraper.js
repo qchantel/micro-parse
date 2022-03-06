@@ -19,6 +19,7 @@ const metascraper = require("metascraper")([
 const got = require("got");
 const { parseCss } = require("../css-parser/css-parser");
 const { checkMemoryUsage } = require("../../helpers/inspector");
+const Vibrant = require("node-vibrant");
 
 async function getAllCssFiles(cssFiles) {
   // TODO: add limiter size
@@ -39,6 +40,7 @@ async function parseUrl(targetUrl) {
     let html = null;
     let url = null;
     let warningMessage = null;
+    let cssFilesPalette = null;
 
     try {
       const gotHtmlRes = await got(targetUrl);
@@ -56,17 +58,29 @@ async function parseUrl(targetUrl) {
     try {
       const allCss = await getAllCssFiles(cssFiles);
 
-      palette = allCss ? parseCss(allCss, html) : null;
+      cssFilesPalette = allCss ? parseCss(allCss, html) : null;
+    } catch (e) {
+      console.error(e);
+    }
+    try {
+      const vib = await Vibrant.from(metaData.logo || metaData.image);
+      const vibrantPalette = await vib.getPalette();
+      palette = {
+        primaryColor: {
+          rgb: vibrantPalette.Vibrant._rgb,
+          hsl: vibrantPalette.Vibrant._hsl,
+        },
+      };
     } catch (e) {
       console.error(e);
     }
 
     checkMemoryUsage();
-    const data = { ...metaData, palette };
+    const data = { ...metaData, cssFilesPalette, palette };
+    console.log(data);
     if (warningMessage) {
       data.warningMessage = warningMessage;
     }
-    console.log(data);
     return data;
   } catch (e) {
     throw (

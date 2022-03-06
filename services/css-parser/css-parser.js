@@ -3,6 +3,7 @@ const Color = require("color");
 function findAndReplaceCssVar(cssVar, string) {
   const regex = new RegExp(`${cssVar.string}:(.*?)[;!><\"\!;\\}]`);
   const match = string.match(regex);
+  if (!match || match[1].includes("var")) return null;
   return { color: match[1], ...cssVar };
 }
 
@@ -37,6 +38,7 @@ function findColors(string) {
 
   const replacedVarList = varListByFrequency
     .map((varColor) => findAndReplaceCssVar(varColor, string))
+    .filter((e) => e)
     .map((convertedVar) => {
       try {
         const { color, frequency } = convertedVar;
@@ -49,7 +51,7 @@ function findColors(string) {
           frequency,
         };
       } catch (e) {
-        console.error(e);
+        console.error("error");
 
         return null;
       }
@@ -92,7 +94,10 @@ function freqConvert(colorList) {
   });
 
   const convertedUniqByFrequency = Object.entries(hashMap)
-    .map((elem) => elem[1])
+    .map((elem) => {
+      return elem[1];
+    })
+    .filter((e) => e)
     .sort(function (a, b) {
       return a.frequency - b.frequency;
     });
@@ -106,7 +111,7 @@ function parseCss(allCss, html) {
   const allCssColors = colors.concat(cssColors);
   const colorsOrderedByFreqs = freqConvert(allCssColors);
 
-  return colorsOrderedByFreqs;
+  return colorsOrderedByFreqs.slice(-5);
 }
 
 module.exports = {

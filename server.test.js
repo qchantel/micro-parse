@@ -21,7 +21,7 @@ describe("e2e testing", () => {
       await supertest(app).post("/api/").send(payload).expect(400);
     });
     test("Shall work and contain a body", async () => {
-      const payload = { urlOrEmail: "https://crisp.chat/en/" };
+      const payload = { urlOrEmail: "stackoverflow.com" };
       await supertest(app)
         .post("/api/")
         .send(payload)
