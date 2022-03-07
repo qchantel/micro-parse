@@ -1,6 +1,17 @@
-import isEmail from "validator/lib/isEmail"; // import isUrl from "validator/lib/isUrl.js";
-import isUrl from "validator/lib/isUrl"; // import isUrl from "validator/lib/isUrl.js";
+import { isEmail, isURLLL } from "../../helpers/validators.js";
 
+// These lines make "require" available
+// import { createRequire } from "module";
+// const require = createRequire(import.meta.url);
+
+// const isEmail = require("validator/lib/isEmail");
+// const isUrl = require("validator/lib/isUrl");
+
+// import validator from "validator/index.js";
+
+// if (!isEmail || !isUrl) {
+//   const { isEmail, isUrl } = validator;
+// }
 import { parseUrl } from "../metascraper/metascraper.js";
 
 function extractDomainFromEmail(email) {
@@ -13,7 +24,7 @@ export function getUrl(string) {
     return extractDomainFromEmail(string);
   }
 
-  if (isUrl(string)) {
+  if (isURLLL(string)) {
     return string;
   }
 
