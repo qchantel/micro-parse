@@ -37,7 +37,8 @@
     "metascraper-publisher": "^5.25.8",
     "metascraper-title": "^5.25.8",
     "metascraper-url": "^5.25.8",
-    "node-vibrant": "^3.2.1-alpha.1"
+    "node-vibrant": "^3.2.1-alpha.1",
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",

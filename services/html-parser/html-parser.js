@@ -1,17 +1,4 @@
-import { isEmail, isURLLL } from "../../helpers/validators.js";
-
-// These lines make "require" available
-// import { createRequire } from "module";
-// const require = createRequire(import.meta.url);
-
-// const isEmail = require("validator/lib/isEmail");
-// const isUrl = require("validator/lib/isUrl");
-
-// import validator from "validator/index.js";
-
-// if (!isEmail || !isUrl) {
-//   const { isEmail, isUrl } = validator;
-// }
+import isEmail from "validator/lib/isEmail";
 import { parseUrl } from "../metascraper/metascraper.js";
 
 function extractDomainFromEmail(email) {
@@ -24,13 +11,20 @@ export function getUrl(string) {
     return extractDomainFromEmail(string);
   }
 
-  if (isURLLL(string)) {
+  if (string.match(/http/)) {
+    // string.replace(/http.*\/\//, "");
+    throw {
+      status: 400,
+      message: "Do not include http:// or https:// in your query",
+    };
+  }
+
+  if (string.match(/.*\..*/)) {
+    console.log(string);
     return string;
   }
 
-  throw new Error(
-    "Be sure to pass a valid URL or e-mail. Example: 'example.com' or 'johnny@example.com'"
-  );
+  throw { message: "Malformed payload", status: 400 };
 }
 
 export async function parseUrlOrEmail(input = "") {
