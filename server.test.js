@@ -64,4 +64,17 @@ describe("e2e testing", () => {
         });
     }, 10000);
   });
+  describe("POST /api/domain/infos", () => {
+    test("Shall work and contain a body", async () => {
+      const urlOrEmail = "pikomit.com";
+      await supertest(app)
+        .post(`/api/domain/infos`)
+        .send({ urlOrEmail })
+        .set("X-RapidAPI-Proxy-Secret", "testvalue")
+        .expect(200)
+        .then(async ({ body }) => {
+          expect(body).toBeDefined();
+        });
+    }, 10000);
+  });
 });

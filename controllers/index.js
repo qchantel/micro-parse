@@ -18,10 +18,28 @@ router.get("/domain/infos/:urlOrEmail?", async (req, res, next) => {
     if (!params || !params.urlOrEmail) {
       throw {
         status: 400,
-        message: "Missing POST body, check the documentation for examples.",
+        message: "Missing urlOrEmail, check the documentation for examples.",
       };
     }
     const { urlOrEmail } = params;
+    const data = await parseUrlOrEmail(urlOrEmail);
+
+    res.send(data);
+  } catch (e) {
+    next(e);
+  }
+});
+
+router.post("/domain/infos", async (req, res, next) => {
+  try {
+    const { body } = req;
+    if (!body || !body.urlOrEmail) {
+      throw {
+        status: 400,
+        message: "Missing POST body, check the documentation for examples.",
+      };
+    }
+    const { urlOrEmail } = body;
     const data = await parseUrlOrEmail(urlOrEmail);
 
     res.send(data);
