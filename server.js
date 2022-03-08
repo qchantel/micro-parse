@@ -12,10 +12,9 @@ const HOST = "0.0.0.0";
 
 // App
 const app = express();
-app.get("/", (req, res) => {
-  res.send("<code>This is informatron.xyz api 🔍. Working fine. </code>");
-});
 
 app.use("/api", routes);
+app.use(express.static("public"));
+
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
