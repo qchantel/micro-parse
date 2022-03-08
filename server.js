@@ -24,10 +24,6 @@ app.set("trust proxy", 1);
 app.use("/api", routes);
 app.use(express.static("public"));
 
-app.get("/ip", (request, response) => {
-  response.send(request.ip + request.headers["x-forwarded-for"]);
-});
-
 app.use("/test", limiter);
 app.use("/test", (req, res, next) => {
   // inject fake headers auth

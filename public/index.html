@@ -1,29 +1,51 @@
 <html>
 
+
+
 <head>
     <link rel="stylesheet" href="styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script>
+        const { hostname } = window.location;
+        const baseUrl = hostname.includes('localhost') ? 'http://localhost:49160/' : 'https://informatron.xyz/';
+        async function fetchData() {
+            try {
+                const urloremaildom = document.getElementById('urloremail').value
+                if (!urloremaildom) throw 'No value provided'
+                const res = await fetch(baseUrl + `test/domain/infos/${urloremaildom}`);
+                const json = await res.json()
+                const resultsdomdiv = document.getElementById('data-results');
+                resultsdomdiv.innerHTML = JSON.stringify(json, null, 2)
+            } catch (e) {
+                console.error(e)
+            }
+        }
+    </script>
 </head>
 
 <body>
-    <img src="spy.gif" width="50px" />
-    <div class="section">
-        <h1>Get a domain information from any url or email.</h1>
-        <p>Personnalize your users onboarding with their colors and logos</p>
-        <p>Know your users with better precision to supercharge your analytics, communication and CRM</p>
+    <div class="hero-div">
+        <img src="spy.gif" width="50px" />
+        <div class="section">
+            <h1>Get a domain information from any url or email.</h1>
+            <p>Personnalize your users onboarding with their colors and logos</p>
+            <p>Know your users with better precision to supercharge your analytics, communication and CRM</p>
+        </div>
+        <div class="section">
+            <p style="font-size: 22px;">Test the API and much more on our</p>
+            <a href="https://rapidapi.com/quentin-ASRUWyU5m/api/informatron-logo-colors-and-infos-scraper/"
+                alt="api link">RapidAPI page
+            </a>
+        </div>
     </div>
-    <!-- <div class="demo">
-        <form>
-            <input type="text" placeholder="stackoverflow.com, johnny@apple.com, ..." autofocus />
-            <input style="margin-top: 18px" type="submit" value="🔎 Test">
-        </form>
-    </div> -->
-    <div class="section">
-        <p style="font-size: 22px;">Test the API and much more on our</p>
-        <a href="https://rapidapi.com/quentin-ASRUWyU5m/api/informatron-logo-colors-and-infos-scraper/"
-            alt="api link">RapidAPI page
-        </a>
+
+    <div class="test">
+        <input type="text" id="urloremail" placeholder="stackoverflow.com, johnny@apple.com, ..." autofocus />
+        <button style="margin-top: 18px" onclick="fetchData()">🔎 Test</button>
+        <div id="data-results"></div>
     </div>
+
 
 </body>
 
