@@ -7,24 +7,22 @@ function extractDomainFromEmail(email) {
 }
 
 export function getUrl(string) {
-  if (isEmail(string)) {
-    return extractDomainFromEmail(string);
+  let copy = string;
+  if (isEmail(copy)) {
+    return extractDomainFromEmail(copy);
   }
 
-  if (string.match(/http/)) {
-    // string.replace(/http.*\/\//, "");
-    throw {
-      status: 400,
-      message: "Do not include http:// or https:// in your query",
-    };
+  copy = copy.replace(/(https|http):\/\//, "");
+
+  if (copy.match(/.*\..*/)) {
+    return copy;
   }
 
-  if (string.match(/.*\..*/)) {
-    console.log(string);
-    return string;
-  }
-
-  throw { message: "Malformed payload", status: 400 };
+  throw {
+    message:
+      "An unknown error happened. It's often caused by misconfigured websites or robots protections.",
+    status: 500,
+  };
 }
 
 export async function parseUrlOrEmail(input = "") {

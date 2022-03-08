@@ -55,7 +55,9 @@ export async function parseUrl(targetUrl) {
     let cssFilesPalette = null;
 
     try {
-      const gotHtmlRes = await got("https://" + targetUrl);
+      const gotHtmlRes = await got("https://" + targetUrl, {
+        maxRedirects: 20,
+      });
       html = gotHtmlRes.body;
       url = gotHtmlRes.url;
     } catch (e) {
