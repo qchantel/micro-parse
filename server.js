@@ -19,7 +19,7 @@ const HOST = "0.0.0.0";
 
 // App
 const app = express();
-app.set("trust proxy");
+app.set("trust proxy", 1);
 
 app.use("/api", routes);
 app.use(express.static("public"));
