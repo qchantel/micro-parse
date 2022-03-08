@@ -24,7 +24,9 @@ app.set("trust proxy", "uniquelocal");
 app.use("/api", routes);
 app.use(express.static("public"));
 
-app.get("/ip", (request, response) => response.send(request.ip));
+app.get("/ip", (request, response) => {
+  response.send(request.ip + "yo");
+});
 
 app.use("/test", limiter);
 app.use("/test", (req, res, next) => {
