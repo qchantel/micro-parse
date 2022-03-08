@@ -19,13 +19,13 @@ const HOST = "0.0.0.0";
 
 // App
 const app = express();
-app.set("trust proxy", "uniquelocal");
+app.set("trust proxy");
 
 app.use("/api", routes);
 app.use(express.static("public"));
 
 app.get("/ip", (request, response) => {
-  response.send(request.ip + "yo");
+  response.send(request.ip + request.headers["x-forwarded-for"]);
 });
 
 app.use("/test", limiter);
