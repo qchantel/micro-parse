@@ -4,7 +4,7 @@ It is slow because it does not only extract the `head` of a page, but also the C
   
 ## Some obvious limitations
 - does not work on some websites that seem to protect themselves against bots/scrappers (leboncoin.fr)
-- the colors extractor is obviously not always right
+- the colors extractor is not always right
 
 ## Why
 I wanted to:
